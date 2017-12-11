@@ -1,25 +1,31 @@
 class Orders extends React.Component {
   constructor(props) {
-  	super()
+    super()
   	this.state = {
-  		orders: JSON.parse(props.orders)
+  		orders: props.orders
   	}
   }
 
   renderOrder(order, i) {
-  	debugger
   	return (
   		<h3>
-  			This is order { order.id }
+  			Name of agent is { order.agency }
   		</h3>
   	)
-  } 
+  }
+
+  handleChangeStatus(status) {
+    debugger
+  }
 
   render() {
     return (
-    	<div className="wrapper">
-    		{ this.state.orders.map((order, i) => this.renderOrder(order, i)) }
-    	</div>
+    	<div className="order-details">
+        <div className="order-title">
+          <h3>Orders</h3>
+        </div>
+        { this.state.orders.map((order, i) => <OrderItem key={i} order={order} handleChangeStatus={this.handleChangeStatus} />) }
+      </div>
     )
   }
 }

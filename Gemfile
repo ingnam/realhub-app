@@ -34,6 +34,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 gem 'slim'
 gem 'react-rails'
+gem 'httparty'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -48,6 +49,7 @@ group :development, :test do
   gem 'pry-stack_explorer'
   # rails console helper
   gem 'awesome_print'
+  gem 'rspec-rails'
 end
 
 group :development do
