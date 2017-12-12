@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   resources :orders do
+  	collection do
+  		get 'update_item_status'
+  	end
   end
   
   root 'orders#index'

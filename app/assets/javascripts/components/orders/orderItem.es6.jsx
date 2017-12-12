@@ -7,24 +7,37 @@ class OrderItem extends React.Component {
   }
 
   artWork (artwork) {
-  	if(artwork) {
+    if(artwork) {
   		return (
-  			<a href="">Download Artwork</a>
+  			<a 
+          href={artwork}
+          target="_blank"
+        >
+          Download Artwork
+        </a>
   		)
   	} else {
   		return "No Artwork"
   	}
   }
 
-  changeStatus() {
+  handleChangeStatus(item_id, status) {
+    this.props.handleChangeStatus(item_id, status)
+  }
+
+  changeStatus(item_id) {
   	const statuses = ['Pending', 'Printed', 'Held', 'Processing', 'Processed', 'Packaged', 'Complete', 'Dispatched', 'Delivered', 'Declined']
     return (
   		<span tabIndex="0" className="onclick-menu">
   			<ul className="onclick-menu-content">
           { statuses.map((status, i) => 
-            <li key={i}>
+              <li 
+                key={i} 
+                onClick={ ()=> this.handleChangeStatus(item_id, status)}
+              >
               {status}
-            </li> ) 
+              </li>
+            )
           }
 	    </ul>
   		</span>
@@ -36,7 +49,7 @@ class OrderItem extends React.Component {
   		<tr>
         <td>{ item.title }</td>
         <td></td>
-        <td>{ this.artWork(item.artwork) } | { this.changeStatus() } | <span className={item.status}>{ item.status }</span></td>
+        <td>{ this.artWork(item.artwork) } | { this.changeStatus(item.id) } | <span className={item.status}>{ item.status }</span></td>
       </tr>
   	)
   }

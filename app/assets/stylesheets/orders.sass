@@ -1,0 +1,129 @@
+body
+  display: grid
+  grid-template-areas: "header header header" "nav article ads" "nav footer footer"
+  grid-template-rows: 80px 1fr 70px
+  grid-template-columns: 20% 1fr 15%
+  grid-row-gap: 10px
+  grid-column-gap: 10px
+  height: 100vh
+  margin: 0
+
+header
+  padding: 1.2em
+  background: #123f6e
+  margin-bottom: -10px
+
+nav
+  padding: 1.2em
+  background: #f2f2f2
+
+article
+  padding: 1.2em
+
+footer
+  padding: 1.2em
+  background: #f2f2f2
+
+#pageHeader
+  grid-area: header
+
+#pageFooter
+  grid-area: footer
+
+#mainArticle
+  grid-area: article
+
+#mainNav
+  grid-area: nav
+
+#siteAds
+  grid-area: ads
+  background: #f2f2f2
+
+.order-item
+  width: 100%
+  border: 1px solid #dddddd
+  margin-bottom: 15px
+
+.brand-name
+  color: white
+  font-size: 35px
+  margin-left: 50px
+
+.order-item
+  th
+    border-bottom: 1px solid #dddddd
+    text-align: left
+    padding: 8px
+  td
+    padding: 8px
+    &:last-child
+      text-align: right
+  a
+    text-decoration: none
+    color: #265a7c
+    &:hover
+      text-decoration: underline
+
+.order-title
+  width: 100%
+  border-bottom: 1px solid #dddddd
+  margin-bottom: 20px
+  h3
+    margin-bottom: 10px
+
+span
+  &.Approved
+    color: #df931f
+  &.Pending
+    color: #a91dd6
+  &.Printed
+    color: #6194df
+  &.Held
+    color: #673b45
+  &.Processing
+    color: #c51b47
+  &.Processed
+    color: #1abc1f
+  &.Packaged
+    color: #1fd5df
+  &.Complete
+    color: #1dd689
+  &.Dispatched
+    color: #d61da1
+  &.Delivered
+    color: #cd8f1c
+  &.Declined
+    color: #e33b39
+
+.onclick-menu
+  position: relative
+  display: inline-block
+  color: #265a7c
+  cursor: pointer
+  &:before
+    content: "Change Status"
+  &:focus
+    .onclick-menu-content
+      display: block
+    outline: none
+
+.onclick-menu-content
+  position: absolute
+  z-index: 1
+  display: none
+  list-style: none
+  background: #b3b3b3
+  color: white
+  text-align: left
+  width: 90px
+  top: 5px
+  li
+    margin-left: -30px
+    padding: 5px
+
+@media all and (max-width: 575px)
+  body
+    grid-template-areas: "header" "article" "ads" "nav" "footer"
+    grid-template-rows: 80px 1fr 70px 1fr 70px
+    grid-template-columns: 1fr

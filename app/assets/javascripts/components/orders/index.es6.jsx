@@ -6,16 +6,34 @@ class Orders extends React.Component {
   	}
   }
 
-  renderOrder(order, i) {
-  	return (
-  		<h3>
-  			Name of agent is { order.agency }
-  		</h3>
-  	)
+  updateItemStatus(data) {
+    let orders = this.state.orders
+    $.each(orders, function(i, order) {
+      if (order.order_id == data.order_id) {
+        $.each(order.items, function(j, item) {
+          if (data.item_id == item.id) {
+            item.status = data.status
+          }
+        })
+      }
+    })
+    this.setState({orders})
+    toastr.success('Status updated successfully')
   }
 
-  handleChangeStatus(status) {
-    debugger
+  handleChangeStatus(item_id, status) {
+    var _this = this
+    $.ajax({
+      url: '/orders/update_item_status',
+      type: 'GET',
+      data: {
+        item_id: item_id,
+        status: status
+      },
+      success: function(data) {
+        _this.updateItemStatus(data)
+      }
+    })
   }
 
   render() {
@@ -24,7 +42,14 @@ class Orders extends React.Component {
         <div className="order-title">
           <h3>Orders</h3>
         </div>
-        { this.state.orders.map((order, i) => <OrderItem key={i} order={order} handleChangeStatus={this.handleChangeStatus} />) }
+        { this.state.orders.map((order, i) => 
+            <OrderItem
+              key={i}
+              order={order}
+              handleChangeStatus={this.handleChangeStatus.bind(this)}
+            />
+          ) 
+        }
       </div>
     )
   }

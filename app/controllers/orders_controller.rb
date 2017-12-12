@@ -1,8 +1,7 @@
 class OrdersController < ApplicationController
+  include ApiSupport
+
   def index
-		headers = {
-			'x-api-token': ENV['REALHUB_API_KEY']
-		}
 		query = {
 			include_order_agency: true,
 			include_order_campaign: true,
@@ -10,12 +9,23 @@ class OrdersController < ApplicationController
 			include_order_item_status: true,
 			include_order_item_artwork: true
 		}
-		response = HTTParty.get('https://www.realhubapp.com/api/v2/orders.json', query: query, headers: headers)
+		response = HTTParty.get('https://www.realhubapp.com/api/v2/orders.json', query: query, headers: api_header)
 		@orders = []
 		response.each do |order|
 			@orders << bulild_order_data(order)
 		end
 		@orders
+  end
+
+  def update_item_status
+  	query = {
+  		status: params[:status],
+  		include_order_item_status: true
+  	}
+  	response = HTTParty.put("https://www.realhubapp.com/api/v2/order_items/#{params[:item_id]}", query: query, headers: api_header)
+  	if response.code == 200
+	  	render json: { order_id: response['order_id'], item_id: response['id'], status: response['status']['title'] }
+	  end
   end
 
   
@@ -31,6 +41,7 @@ class OrdersController < ApplicationController
 
 						}
 		{
+			order_id: order['id'],
 			agency: order['agency']['title'],
 			campaign_address: order['campaign']['address'],
 			campaign_suburb: order['campaign']['suburb_name'],

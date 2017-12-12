@@ -31,8 +31,10 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+gem 'jquery-rails'
 gem 'slim'
 gem 'react-rails'
+gem 'toastr-rails'
 gem 'httparty'
 gem 'rails_12factor'
 
